@@ -49,24 +49,6 @@ var alki= {
 
 var locationObjectArray=[pike,seaTac,seaCenter,capitalHill,alki];
 
-//create a time array:
-var firstHour=6;
-var lastHour=20;
-var hourArray=[]
-for (var i=firstHour;i<=lastHour;i++){
-    if (i<12){
-        hourArray.push(`${i}am`);
-    }
-    else if (i===12){
-        hourArray.push(`${i}pm`);
-    }
-    else{
-        hourArray.push(`${i-12}pm`)
-    }
-}
-hourArray.push('Total');
-console.log(hourArray);
-
 //define function getRandomCust to get random customer number
 function getRandomCust(min, max) {
     return Math.floor(Math.random()*(max-min+1) + min);
@@ -91,7 +73,6 @@ return salesArray;
 
 //define a function called render to connect to sales.HTML and create a list of hourly sales and total sales
 
-
 function render(hourArray, location){
     var salesArray = getSalesArray(location);
     var salesList = document.getElementById(location.id);
@@ -104,8 +85,27 @@ function render(hourArray, location){
     }
 }
 
+//create hourArray:
+var firstHour=6;
+var lastHour=20;
+var hourArray=[]
+for (var i=firstHour;i<=lastHour;i++){
+    if (i<12){
+        hourArray.push(`${i}am`);
+    }
+    else if (i===12){
+        hourArray.push(`${i}pm`);
+    }
+    else{
+        hourArray.push(`${i-12}pm`)
+    }
+}
+hourArray.push('Total');
 
 
+
+
+//call function render
 for (var k=0;k<locationObjectArray.length;k++){
     render(hourArray,locationObjectArray[k]);
 }
