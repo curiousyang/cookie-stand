@@ -30,12 +30,16 @@ div{
     display: inline-block;
     margin-left: 10em;
 }
-div ul{
+table{
     font-family: 'Lobster Two', cursive;
     padding: 1em;
     color:#BE7B71;
+    text-align: center;
+    
 }
-
+td{
+    width:4em;
+}
 section{
     text-align:center;
     color: #5E6562;
@@ -59,4 +63,10 @@ section{
     background-color: #BCA7C6;
     font-family: Georgia, 'Times New Roman', Times, serif;
 
+}
+
+.front{
+    margin-left: 0em;
+    margin-top: 2em;
+    
 }
