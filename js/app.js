@@ -1,7 +1,5 @@
 'use strict';
-
 //create hourArray:
-
 var hourArray =['','6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm','Daily Location Total'];
 
 
@@ -33,7 +31,6 @@ Store.prototype.getRandomCust= function (){
 }
 
 //define function 'getSalesArray' with control curve (to generate salesArray and tosserArray)
-
 Store.prototype.getSalesArray =function(){
     var firstHour = 6;
     var lastHour = 20;
@@ -52,7 +49,6 @@ Store.prototype.getSalesArray =function(){
 }
 
 //define function 'renderTitle' to render titles for Sales Table and Tosser Table:
-
 function renderTitle(tableId){
     var tableEl = document.getElementById(tableId);
     var trEl = document.createElement('tr');
@@ -65,6 +61,7 @@ function renderTitle(tableId){
     }
 
 }
+
 //call 'renderTitle' to render the title for sales table and tosser table:
 renderTitle('sales-table');
 renderTitle('tosser-table');
@@ -78,7 +75,6 @@ Store.prototype.render = function(hourArray,tableId){
     var tdEl = document.createElement('td');
     tdEl.textContent = this.name;
     trEl.appendChild(tdEl);
-
 
     for (var i=0; i<hourArray.length-1; i++){
         var tdEl = document.createElement('td');
@@ -94,7 +90,6 @@ Store.prototype.render = function(hourArray,tableId){
 }
 
 //call function 'render' to render content of Sales Table and Tosser Table (except for title and last row)
-
 for (var k=0;k<storeArray.length;k++){
     storeArray[k].getSalesArray();
     storeArray[k].render(hourArray,'sales-table');
@@ -102,37 +97,34 @@ for (var k=0;k<storeArray.length;k++){
 }
 
 //define function 'renderLastRow' to render last row for Sales Table and Tosser Table:
-
 function renderLastRow(tableId){
     var tableEl = document.getElementById(tableId);
     var trEl = document.createElement('tr');
     tableEl.appendChild(trEl);
 
     var tdEl = document.createElement('td');
-    tdEl.textContent = "Totals";
+    tdEl.textContent = 'Totals';
     trEl.appendChild(tdEl);
-
 
     for (var j=0; j<hourArray.length-1;j++){
         var tdEl = document.createElement('td');
-
-        if (tableId ==='sales-table'){
-            tdEl.textContent = storeArray[0].salesArray[j]+storeArray[1].salesArray[j]+storeArray[2].salesArray[j]+storeArray[3].salesArray[j]+storeArray[4].salesArray[j];
+        var content =0;
+        {
+            for (var m=0;m<storeArray.length;m++){
+                if (tableId ==='sales-table'){
+                    content = content + storeArray[m].salesArray[j];
+                }
+                if (tableId ==='tosser-table'){
+                    content = content + storeArray[m].tosserArray[j];
+                }
+                
+            }
+            tdEl.textContent = content;
         }
-
-        if (tableId ==='tosser-table'){
-            tdEl.textContent = storeArray[0].tosserArray[j]+storeArray[1].tosserArray[j]+storeArray[2].tosserArray[j]+storeArray[3].tosserArray[j]+storeArray[4].tosserArray[j];
-        }
-
         trEl.appendChild(tdEl);
-        
-    
     }
-
 }
 
 //call function 'renderLastRow' to get last rows for Sales Table and Tosser Table:
-
 renderLastRow('sales-table');
 renderLastRow('tosser-table');
-
