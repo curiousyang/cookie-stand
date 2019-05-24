@@ -27,11 +27,13 @@ var seaCenter = new Store('Seattle Center',11,38,3.7,'seaCenter');
 var capitalHill = new Store ('Capitol Hill',20,38,2.3,'capitalHill');
 var alki = new Store('Alki',2,16,4.6,'alki');
 
-//function getRandomCust
+//define function 'getRandomCust':
 Store.prototype.getRandomCust= function (){
     return Math.floor(Math.random()*(this.maxCust-this.minCust+1) + this.minCust);
 }
-//function getSalesArray with control curve
+
+//define function 'getSalesArray' with control curve (to generate salesArray and tosserArray)
+
 Store.prototype.getSalesArray =function(){
     var firstHour = 6;
     var lastHour = 20;
@@ -49,90 +51,88 @@ Store.prototype.getSalesArray =function(){
     this.tosserArray.push(this.dailyTosserSum);
 }
 
-//render title of Sales Table and Tosser Table:
-var tableEl = document.getElementById("sales-table");
-var tableEl2 = document.getElementById("tosser-table");
-var trEl = document.createElement('tr');
-var trEl2 = document.createElement('tr');
-tableEl.appendChild(trEl);
-tableEl2.appendChild(trEl2);
+//define function 'renderTitle' to render titles for Sales Table and Tosser Table:
 
-for (var i=0;i<hourArray.length;i++){
-    var thEl = document.createElement('th');
-    thEl.textContent = hourArray[i];
-    trEl.appendChild(thEl);
-    var thEl2 = document.createElement('th');
-    thEl2.textContent = hourArray[i];
-    trEl2.appendChild(thEl2);
+function renderTitle(tableId){
+    var tableEl = document.getElementById(tableId);
+    var trEl = document.createElement('tr');
+    tableEl.appendChild(trEl);
+
+    for (var i=0;i<hourArray.length;i++){
+        var thEl = document.createElement('th');
+        thEl.textContent = hourArray[i];
+        trEl.appendChild(thEl);
+    }
+
 }
+//call 'renderTitle' to render the title for sales table and tosser table:
+renderTitle('sales-table');
+renderTitle('tosser-table');
 
 
-
-
-
-
-
-//function render of Sales Table and Tosser Table (except for title)
-Store.prototype.render = function(hourArray){
-    var tableEl = document.getElementById("sales-table");
+//define function 'render' to render content of Sales Table and Tosser Table (except for title and last row)
+Store.prototype.render = function(hourArray,tableId){
+    var tableEl = document.getElementById(tableId);
     var trEl = document.createElement('tr');
     tableEl.appendChild(trEl);
     var tdEl = document.createElement('td');
     tdEl.textContent = this.name;
     trEl.appendChild(tdEl);
 
-    var tableEl2 = document.getElementById("tosser-table");
-    var trEl2 = document.createElement('tr');
-    tableEl2.appendChild(trEl2);
-    var tdEl2 = document.createElement('td');
-    tdEl2.textContent = this.name;
-    trEl2.appendChild(tdEl2);
-
 
     for (var i=0; i<hourArray.length-1; i++){
         var tdEl = document.createElement('td');
-        tdEl.textContent = this.salesArray[i];
+        if (tableId==='sales-table'){
+            tdEl.textContent = this.salesArray[i];
+        }
+        if (tableId==='tosser-table'){
+            tdEl.textContent = this.tosserArray[i];
+        }
         trEl.appendChild(tdEl);
-        var tdEl2 = document.createElement('td');
-        tdEl2.textContent = this.tosserArray[i];
-        trEl2.appendChild(tdEl2);
     }
 
 }
 
-//call function render to render 1st row to second last row of sales table and tosser table:
+//call function 'render' to render content of Sales Table and Tosser Table (except for title and last row)
+
 for (var k=0;k<storeArray.length;k++){
     storeArray[k].getSalesArray();
-    storeArray[k].render(hourArray);
+    storeArray[k].render(hourArray,'sales-table');
+    storeArray[k].render(hourArray,'tosser-table');
 }
 
-//create last row of the sales table and tosser table:
-var tableEl = document.getElementById("sales-table");
-var trEl = document.createElement('tr');
-tableEl.appendChild(trEl);
+//define function 'renderLastRow' to render last row for Sales Table and Tosser Table:
 
-var tdEl = document.createElement('td');
-tdEl.textContent = "Totals";
-trEl.appendChild(tdEl);
+function renderLastRow(tableId){
+    var tableEl = document.getElementById(tableId);
+    var trEl = document.createElement('tr');
+    tableEl.appendChild(trEl);
 
-var tableEl2 = document.getElementById("tosser-table");
-var trEl2 = document.createElement('tr');
-tableEl2.appendChild(trEl2);
-
-var tdEl2 = document.createElement('td');
-tdEl2.textContent = "Totals";
-trEl2.appendChild(tdEl2);
-
-for (var j=0; j<hourArray.length-1;j++){
     var tdEl = document.createElement('td');
-    tdEl.textContent = storeArray[0].salesArray[j]+storeArray[1].salesArray[j]+storeArray[2].salesArray[j]+storeArray[3].salesArray[j]+storeArray[4].salesArray[j];
+    tdEl.textContent = "Totals";
     trEl.appendChild(tdEl);
 
-    var tdEl2 = document.createElement('td');
-    tdEl2.textContent = storeArray[0].tosserArray[j]+storeArray[1].tosserArray[j]+storeArray[2].tosserArray[j]+storeArray[3].tosserArray[j]+storeArray[4].tosserArray[j];
-    trEl2.appendChild(tdEl2);
 
+    for (var j=0; j<hourArray.length-1;j++){
+        var tdEl = document.createElement('td');
+
+        if (tableId ==='sales-table'){
+            tdEl.textContent = storeArray[0].salesArray[j]+storeArray[1].salesArray[j]+storeArray[2].salesArray[j]+storeArray[3].salesArray[j]+storeArray[4].salesArray[j];
+        }
+
+        if (tableId ==='tosser-table'){
+            tdEl.textContent = storeArray[0].tosserArray[j]+storeArray[1].tosserArray[j]+storeArray[2].tosserArray[j]+storeArray[3].tosserArray[j]+storeArray[4].tosserArray[j];
+        }
+
+        trEl.appendChild(tdEl);
+        
+    
+    }
 
 }
 
+//call function 'renderLastRow' to get last rows for Sales Table and Tosser Table:
+
+renderLastRow('sales-table');
+renderLastRow('tosser-table');
 

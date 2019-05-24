@@ -48,6 +48,7 @@ th{
     color: #243248;
 }
 
+
 section{
     text-align:center;
     color: #5E6562;
@@ -63,10 +64,11 @@ section{
 }
 
 #history{
-    width: 70%;
-    position: relative;
+    width: 100%;
     border: 0.5em dotted  #5E6562;
     padding:0.5em;
+    margin-left:auto;
+    margin-left:auto;
     text-align: center;
     background-color: #BCA7C6;
     font-family: Georgia, 'Times New Roman', Times, serif;
