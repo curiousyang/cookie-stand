@@ -2,8 +2,7 @@
 //create hourArray:
 var hourArray =['','6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm','Daily Location Total'];
 
-
-//constructor Store
+//constructor function Store
 var storeArray=[];
 var Store = function (name,minCust,maxCust,avgSale,id){
     this.name =name;
@@ -13,17 +12,18 @@ var Store = function (name,minCust,maxCust,avgSale,id){
     this.id=id;
     this.salesArray=[];
     this.dailySum=0;
-    storeArray.push(this);
     this.tosserArray =[];
     this.dailyTosserSum =0;
+    storeArray.push(this);
 }
 
-//create instances
+//create original instances
 var pike = new Store('1st and Pike',23,65,6.3,'pike');
 var seaTac = new Store('SeaTac Airport',3,24,1.2,'seaTac');
 var seaCenter = new Store('Seattle Center',11,38,3.7,'seaCenter');
 var capitalHill = new Store ('Capitol Hill',20,38,2.3,'capitalHill');
 var alki = new Store('Alki',2,16,4.6,'alki');
+
 
 //define function 'getRandomCust':
 Store.prototype.getRandomCust= function (){
@@ -48,6 +48,7 @@ Store.prototype.getSalesArray =function(){
     this.tosserArray.push(this.dailyTosserSum);
 }
 
+
 //define function 'renderTitle' to render titles for Sales Table and Tosser Table:
 function renderTitle(tableId){
     var tableEl = document.getElementById(tableId);
@@ -61,11 +62,6 @@ function renderTitle(tableId){
     }
 
 }
-
-//call 'renderTitle' to render the title for sales table and tosser table:
-renderTitle('sales-table');
-renderTitle('tosser-table');
-
 
 //define function 'render' to render content of Sales Table and Tosser Table (except for title and last row)
 Store.prototype.render = function(hourArray,tableId){
@@ -89,12 +85,6 @@ Store.prototype.render = function(hourArray,tableId){
 
 }
 
-//call function 'render' to render content of Sales Table and Tosser Table (except for title and last row)
-for (var k=0;k<storeArray.length;k++){
-    storeArray[k].getSalesArray();
-    storeArray[k].render(hourArray,'sales-table');
-    storeArray[k].render(hourArray,'tosser-table');
-}
 
 //define function 'renderLastRow' to render last row for Sales Table and Tosser Table:
 function renderLastRow(tableId){
@@ -125,6 +115,37 @@ function renderLastRow(tableId){
     }
 }
 
-//call function 'renderLastRow' to get last rows for Sales Table and Tosser Table:
-renderLastRow('sales-table');
-renderLastRow('tosser-table');
+//get Form data and call all the render functions (renderTitle, render, renderLastRow)
+var formEl = document.getElementById('store-input');
+formEl.addEventListener('submit',function(e){
+
+    //everytime click submit, clear the previous generated tables:
+    document.getElementById("sales-table").innerHTML = "";
+    document.getElementById("tosser-table").innerHTML = "";
+    
+    //get additional store information from form:
+    e.preventDefault();
+    var name =e.target.name.value;
+    var minCust =Number(e.target.minCust.value);
+    var maxCust =Number(e.target.maxCust.value);
+    var avgSale =Number(e.target.avgSale.value);
+    var id =e.target.id.value;
+    new Store(name,minCust,maxCust,avgSale,id);
+
+
+
+
+    //call renderTitle, render, and renderLastRow:
+    renderTitle('sales-table');
+    renderTitle('tosser-table');
+
+    for (var k=0;k<storeArray.length;k++){
+        storeArray[k].getSalesArray();
+        storeArray[k].render(hourArray,'sales-table');
+        storeArray[k].render(hourArray,'tosser-table');
+    }
+    renderLastRow('sales-table');
+    renderLastRow('tosser-table');
+
+
+});

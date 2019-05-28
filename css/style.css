@@ -25,7 +25,12 @@ h3{
     font-family: 'Russo One', sans-serif;
     text-align: center;
 }
-
+h4{
+    font-size:1.5em;
+    color:#384D6C;
+    font-family: 'Russo One', sans-serif;
+    text-align: left;
+}
 
 table{
     font-family: 'Lobster Two', cursive;
@@ -79,4 +84,39 @@ section{
     margin-left: 0em;
     margin-top: 2em;
     
+}
+
+form{
+    font-size:1em;
+    color: #5E6562;
+    font-family: 'Russo One', sans-serif;
+    text-align: left;
+    padding:2em;
+
+}
+label{
+    display: block;
+    text-align: left;
+}
+input{
+    display: block;
+    margin:0.1%;
+    width: 20%;
+    border: inset 0.1em;
+}
+button{
+    background-color:#5E6562;
+    font-family:'Russo One', sans-serif;
+    color: #FEFCF1;
+    font-size:1em;
+    border:groove;
+}
+
+input:invalid {
+    border: dotted 0.1em red;
+  }
+#picture{
+    position: absolute;
+    right: 5%;
+    top: 10%;
 }

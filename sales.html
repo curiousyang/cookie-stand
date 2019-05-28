@@ -13,8 +13,40 @@
         <h1>Daily Sales Projections</h1>
         
     </header>
+    <h4>Input New Stores Here:</h4>
+
+    
+
 
     <main>
+        <div>
+            <form id ="store-input">
+                    <fieldset>
+                        <label>Store Name:</label>
+                        <input name="name" type="text" required/>
+                        <br/>
+                        <label>Min Customer Per Hour:</label>
+                        <input name="minCust" type="number" min="0" required />
+                        <br/>
+                        <label>Max Customer Per Hour:</label>
+                        <input name="maxCust" type="number" min="0" required />
+                        <br/>
+                        <label>Average Cookies Sold Per Customer:</label>
+                        <input name="avgSale" type="number" step="0.1" min="0" required />
+                        <br/>
+                        <label>Store ID:</label>
+                        <input name="id" type="text" required/>
+                        <br/>
+                        <button name ="submit-botton" type="submit">Submit and Generate Tables</button>
+            
+                    </fieldset>
+                </form> 
+
+        </div>
+        
+        <div id = "picture">
+                <img src="image/salmon.png" alt="salmon picture" />
+        </div>
         <div class = "front">
             <h2>Table 1 - Daily Cookie Sold</h2>
             <br>
