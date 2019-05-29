@@ -120,8 +120,8 @@ var formEl = document.getElementById('store-input');
 formEl.addEventListener('submit',function(e){
 
     //everytime click submit, clear the previous generated tables:
-    document.getElementById("sales-table").innerHTML = "";
-    document.getElementById("tosser-table").innerHTML = "";
+    document.getElementById("sales-table").innerHTML = '';
+    document.getElementById("tosser-table").innerHTML = '';
     
     //get additional store information from form:
     e.preventDefault();
@@ -149,3 +149,15 @@ formEl.addEventListener('submit',function(e){
 
 
 });
+
+//default table:
+renderTitle('sales-table');
+    renderTitle('tosser-table');
+
+    for (var k=0;k<storeArray.length;k++){
+        storeArray[k].getSalesArray();
+        storeArray[k].render(hourArray,'sales-table');
+        storeArray[k].render(hourArray,'tosser-table');
+    }
+    renderLastRow('sales-table');
+    renderLastRow('tosser-table');
